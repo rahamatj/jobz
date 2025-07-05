@@ -1,5 +1,5 @@
 <div>
-    <form wire:submit="save" method="POST">
+    <form wire:submit="update" method="POST">
         @csrf
         <div>
             <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Name</label>

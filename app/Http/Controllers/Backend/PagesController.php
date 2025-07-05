@@ -16,7 +16,13 @@ class PagesController extends Controller
     public function categories()
     {
         return view('backend.categories.index', [
-            'categories'=> Category::all()
+            'categories'=> Category::latest()->get()
         ]);
+    }
+
+    public function deleteCategory(Category $category)
+    {
+        $category->delete();
+        return redirect()->route('admin.categories.index')->with('success', 'Category deleted successfully.');
     }
 }

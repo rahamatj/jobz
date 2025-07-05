@@ -13,6 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    @livewireStyles
 </head>
 
 <body>
@@ -31,15 +32,30 @@
     <x-backend.sidenav />
 
     <div class="p-4 sm:ml-64">
-        <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
-            {{ $slot ?? '' }}
+
+        @if(session()->has('success'))
+            <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50"
+                role="alert">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if(session()->has('error'))
+            <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg">
+            {{ $slot }}
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
-    @livewireScripts
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3"></script>
+    @livewireScripts
     <script src="{{ asset('js/script.js') }}"></script>
+
 </body>
 
 </html>

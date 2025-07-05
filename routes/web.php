@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Frontend\PagesController as FrontendPagesController;
+use App\Livewire\Category\EditCategory;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 use App\Http\Controllers\Backend\PagesController as BackendPagesController;
@@ -17,6 +18,8 @@ Route::group(["prefix"=> "admin", "as" => "admin."], function () {
     Route::get("categories", [BackendPagesController::class, "categories"])->name("categories.index");
 
     Route::get("categories/create", CreateCategory::class)->name("categories.create");
+    Route::get("categories/edit/{category}", EditCategory::class)->name("categories.edit");
+    Route::get("categories/delete/{category}", [BackendPagesController::class, "deleteCategory"])->name("categories.delete");
 });
 
 Route::middleware(['auth'])->group(function () {

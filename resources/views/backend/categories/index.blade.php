@@ -1,43 +1,35 @@
-@extends('layouts.app')
-
-@section('title', 'Categories')
-
-@section('content')
-
-    <x-backend.sidenav />
-
-    <div class="p-4 sm:ml-64">
-
-        <table id="pagination-table">
-            <thead>
+<x-layouts.admin title="Categories">
+    <table id="pagination-table">
+        <thead>
+            <tr>
+                <th>
+                    <span class="flex items-center">
+                        Category Name
+                    </span>
+                </th>
+                <th>
+                    <span class="flex items-center">
+                        Display Order
+                    </span>
+                </th>
+                <th>
+                    <span class="flex items-center">
+                        Actions
+                    </span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($categories as $category)
                 <tr>
-                    <th>
-                        <span class="flex items-center">
-                            Category Name
-                        </span>
-                    </th>
-                    <th>
-                        <span class="flex items-center">
-                            Display Order
-                        </span>
-                    </th>
+                    <td class="font-medium text-gray-900 whitespace-nowrap">{{ $category->name }}</td>
+                    <td>{{ $category->display_order }}</td>
+                    <td>
+                        <a href="{{ route('admin.categories.edit', $category) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" wire:navigate>Edit</a>
+                        <a href="{{ route('admin.categories.delete', $category) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" wire:navigate>Delete</a>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach ($categories as $category)
-                    <tr>
-                        <td class="font-medium text-gray-900 whitespace-nowrap">{{ $category->name }}</td>
-                        <td>{{ $category->display_order }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-
-    </div>
-
-@endsection
-
-@push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3"></script>
-    <script src="{{ asset('js/script.js') }}"></script>
-@endpush
+            @endforeach
+        </tbody>
+    </table>
+</x-layouts.admin>
