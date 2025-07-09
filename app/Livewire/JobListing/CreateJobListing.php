@@ -29,6 +29,12 @@ class CreateJobListing extends Component
     public $employment_status;
     public $company_address;
 
+    protected $listeners = ['setRequirements'];
+
+    public function setRequirements($md)
+    {
+        $this->requirements = $md;
+    }
 
     public function mount()
     {
@@ -36,13 +42,6 @@ class CreateJobListing extends Component
 
         $this->applicationDeadline = now()->format("Y-m-d");
         $this->published = now()->format("Y-m-d");
-    }
-
-    protected $listeners = ['updateRequirements'];
-
-    public function updateRequirements($value)
-    {
-        $this->requirements = $value;
     }
 
     public function render()

@@ -24,13 +24,13 @@ return new class extends Migration
             $table->unsignedTinyInteger('experience');
             $table->date('published');
             $table->unsignedSmallInteger('salary');
-            $table->text('requirements')->nullable();
-            $table->text('responsibilities')->nullable();
-            $table->text('skills')->nullable();
-            $table->text('benefits')->nullable();
-            $table->enum('work_place', ['onsite', 'remote']);
-            $table->enum('employment_status', ['full time', 'part time']);
-            $table->text('company_address')->nullable();
+            $table->text('requirements')->nullable()->default(null);
+            $table->text('responsibilities')->nullable()->default(null);
+            $table->text('skills')->nullable()->default(null);
+            $table->text('benefits')->nullable()->default(null);
+            $table->enum('work_place', ['onsite', 'remote'])->default('onsite');
+            $table->enum('employment_status', ['full time', 'part time'])->default('full time');
+            $table->text('company_address')->nullable()->default(null);
             $table->timestamps();
         });
     }

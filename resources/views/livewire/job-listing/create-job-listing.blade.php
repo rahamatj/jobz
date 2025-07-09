@@ -69,7 +69,7 @@
             <div wire:ignore>
                 <label for="applicationDeadline" class="block mb-2 text-sm font-medium text-gray-900">Application
                     Deadline</label>
-                <input datepicker id="applicationDeadline" type="text"
+                <input datepicker id="applicationDeadline" type="date"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     placeholder="Select date" name="applicationDeadline" datepicker-format="yyyy-mm-dd">
             </div>
@@ -99,7 +99,7 @@
 
             <div wire:ignore>
                 <label for="published" class="block mb-2 text-sm font-medium text-gray-900">Published</label>
-                <input datepicker id="published" type="text"
+                <input datepicker id="published" type="date"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     placeholder="Select date" wire:model="published" name="published" datepicker-format="yyyy-mm-dd">
             </div>
@@ -117,7 +117,7 @@
                 @error('salary') <span class="text-red-800">{{ $message }}</span> @enderror
             </div>
 
-            <div class="mt-6" wire:ignore>
+            <div class="mt-6">
                 <div>
                     <label for="requirements" class="block mb-2 text-sm font-medium text-gray-900">Requirements</label>
                     <textarea id="requirements" wire:model="requirements" name="requirements"
@@ -139,26 +139,6 @@
 
             <div class="mt-6" wire:ignore>
                 <div>
-                    <label for="responsibilities" class="block mb-2 text-sm font-medium text-gray-900">Responsibilities</label>
-                    <textarea id="responsibilities" wire:model="responsibilities" name="responsibilities"
-                        class="markdown-editor"></textarea>
-                </div>
-                <div>
-                    @error('responsibilities') <span class="text-red-800">{{ $message }}</span> @enderror
-                </div>
-
-                <div>
-                    <!-- Modal toggle -->
-                    <button data-modal-target="requirementsModal" data-modal-toggle="requirementsModal"
-                        class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                        type="button">
-                        Preview
-                    </button>
-                </div>
-            </div>
-
-            {{-- <div class="mt-6" wire:ignore>
-                <div>
                     <label for="responsibilities"
                         class="block mb-2 text-sm font-medium text-gray-900">Responsibilities</label>
                     <textarea id="responsibilities" wire:model="responsibilities" name="responsibilities"
@@ -171,12 +151,12 @@
                 <div>
                     <!-- Modal toggle -->
                     <button data-modal-target="responsibilitiesModal" data-modal-toggle="responsibilitiesModal"
-                        class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center preview"
+                        class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                         type="button">
                         Preview
                     </button>
                 </div>
-            </div> --}}
+            </div>
 
             <button type="submit"
                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mt-6">Submit</button>
@@ -211,7 +191,7 @@
             </div>
         </div>
 
-        {{-- <div id="responsibilitiesModal" tabindex="-1" aria-hidden="true"
+        <div id="responsibilitiesModal" tabindex="-1" aria-hidden="true"
             class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-[100%] md:inset-0 h-[calc(100%-1rem)] max-h-full">
             <div class="relative p-4 w-1/2 max-h-full">
                 <!-- Modal content -->
@@ -236,99 +216,6 @@
                     <div id="responsibilitiesModalBody" class="p-4 md:p-5 space-y-4"></div>
                 </div>
             </div>
-        </div> --}}
-
-        <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-        <script>
-
-            document.addEventListener('DOMContentLoaded', function () {
-
-                const requirementsModalBody = document.getElementById("requirementsModalBody");
-
-                const requirementsMDE = new EasyMDE({
-                    element: document.getElementById("requirements"),
-                    toolbar: [
-                        "bold",
-                        "italic",
-                        "strikethrough",
-                        "heading",
-                        "|",
-                        "quote",
-                        "unordered-list",
-                        "ordered-list",
-                        "|",
-                        "link",
-                        "image",
-                        "table",
-                        "horizontal-rule",
-                        "|",
-                        "fullscreen",
-                        "|",
-                        "guide"
-                    ]
-                });
-
-                const responsibilitiesMDE = new EasyMDE({
-                    element: document.getElementById("responsibilities"),
-                    toolbar: [
-                        "bold",
-                        "italic",
-                        "strikethrough",
-                        "heading",
-                        "|",
-                        "quote",
-                        "unordered-list",
-                        "ordered-list",
-                        "|",
-                        "link",
-                        "image",
-                        "table",
-                        "horizontal-rule",
-                        "|",
-                        "fullscreen",
-                        "|",
-                        "guide"
-                    ]
-                });
-
-                requirementsMDE.codemirror.on("change", function () {
-                    let val = requirementsMDE.value();
-                    let md = marked.parse(val);
-
-                    console.log(md);
-
-                    @this.set("requirements", md);
-
-                    // requirementsModalBody.innerHTML = md;
-                });
-
-                responsibilitiesMDE.codemirror.on("change", function () {
-                    let val = responsibilitiesMDE.value();
-                    let md = marked.parse(val);
-
-                    console.log(md);
-
-                    @this.set("responsibilities", md);
-
-                    // requirementsModalBody.innerHTML = md;
-                });
-
-                const applicationDeadline = document.getElementById('applicationDeadline');
-
-                applicationDeadline.addEventListener("changeDate", function (e) {
-                    @this.set("applicationDeadline", applicationDeadline.value);
-                });
-
-                const published = document.getElementById('published');
-
-                published.addEventListener("changeDate", function (e) {
-                    @this.set("published", published.value);
-                });
-            });
-
-
-        </script>
+        </div>
     </div>
 </div>
