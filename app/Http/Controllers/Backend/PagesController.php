@@ -25,4 +25,9 @@ class PagesController extends Controller
         $category->delete();
         return redirect()->route('admin.categories.index')->with('success', 'Category deleted successfully.');
     }
+
+    public function jobListings()
+    {
+        return view('backend.job-listing.index');
+    }
 }

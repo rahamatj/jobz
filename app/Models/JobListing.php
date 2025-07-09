@@ -12,6 +12,11 @@ class JobListing extends Model
 
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'application_deadline' => 'date',
+        'published' => 'date'
+    ];
+
     public function category()
     {
         return $this->belongsTo(Category::class);
